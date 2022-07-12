@@ -1,4 +1,5 @@
-import java.util.Arrays;
+
+import java.util.*;
 
 class ContainsDuplicate {
   public static void main(String[] args) {
@@ -6,7 +7,7 @@ class ContainsDuplicate {
     int[] nums = new int[]{1,1,3,1};
     
      System.out.println(Arrays.toString(nums));
-    if(containsDuplicateBruteForce(nums)){
+    if(containsDuplicateUsingHash(nums)){
       System.out.println("Contains Duplicates");
     }else{
       System.out.println("DOES NOT Contain Duplicates");
@@ -26,9 +27,18 @@ class ContainsDuplicate {
     
   }
 
-  public static boolean checkPalindromeUsingHash(int[] nums){
+  public static boolean containsDuplicateUsingHash(int[] nums){
     // Checking duplicate using hash table
-    return true;
+    Set<Integer> uniquesNumSet = new HashSet<>();
+    for(int i=0;i<nums.length;i++){
+      if(uniquesNumSet.contains(nums[i])){
+        System.out.println("Duplicate num in array is "+nums[i]);
+        return true;
+      }else{
+        uniquesNumSet.add(nums[i]);
+      }
+    }
+    return false;
 
   }
 }
