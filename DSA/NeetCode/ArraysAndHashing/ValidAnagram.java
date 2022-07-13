@@ -29,12 +29,16 @@ class ValidAnagram {
     
   }
 
+  //my attempt
   public static boolean checkAnagramUsingHash(String string1, String string2){
     // Checking anagram using hash table
     System.out.println("Checking anagram using hash table...");
     //logic starts...
 
-    //populate char count of 1st string to hash map
+    //1.Check if strings are of same length
+    if(string1.length()!=string2.length()) return false;
+    
+    //2.Populate char count of 1st string to hash map
     HashMap<Character,Integer> charCountMap = new HashMap<>();
     for(int i=0;i<string1.length();i++){
       Character character = string1.charAt(i);
@@ -47,11 +51,24 @@ class ValidAnagram {
       }
     }
 
-    //check 2nd string with hash map
-    for(int i=0;i<string1.length();i++){
-      
+    //3.Check 2nd string with hash map
+    for(int i=0;i<string2.length();i++){
+      Character character = string2.charAt(i);
+      Integer charCount = charCountMap.get(character);
+      if(charCount==null||charCount==0){
+        return false;
+      }else{
+        charCountMap.put(character, --charCount);
+      }
     }
+
+    //4.Check if any value in hasmap is greater than 0
+    for (Map.Entry<Character, Integer> set :charCountMap.entrySet()) {
+      if(set.getValue()>0)
+        return false;
+    }
+    return true;
     //...logic ends
-    return false;
+    
   }
 }
