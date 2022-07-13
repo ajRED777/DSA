@@ -16,6 +16,8 @@ class ContainsDuplicate {
   }
   public static boolean containsDuplicateBruteForce(int[] nums){
     // Checking duplicate using brute force
+    System.out.println("Checking duplicate using brute force...");
+    //logic starts---
     for(int i=0;i<nums.length;i++){
       for(int j=i+1;j<nums.length;j++){
         if(nums[i]==nums[j]){
@@ -24,11 +26,14 @@ class ContainsDuplicate {
       }
     }
     return false;
+    //---logic ends
     
   }
 
   public static boolean containsDuplicateUsingHash(int[] nums){
     // Checking duplicate using hash table
+    System.out.println("Checking duplicate using hash set...");
+    //logic starts...
     Set<Integer> uniquesNumSet = new HashSet<>();
     for(int i=0;i<nums.length;i++){
       if(uniquesNumSet.contains(nums[i])){
@@ -39,6 +44,7 @@ class ContainsDuplicate {
       }
     }
     return false;
+    //...logic ends
 
   }
 }
