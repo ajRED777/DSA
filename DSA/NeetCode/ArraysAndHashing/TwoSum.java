@@ -14,10 +14,10 @@ import java.util.*;
 class TwoSum {
   public static void main(String[] args) {
     System.out.println("Checking if array has integrs with target sum");
-    int[] nums = new int[] { };
+    int[] nums = new int[] {1,2,3,7};
     int targetSum = 5;
     System.out.println();
-    System.out.println(Arrays.toString(checkTwoSumBruteForce(nums, targetSum)));
+    System.out.println(Arrays.toString(checkTwoSumUsingHash(nums, targetSum)));
 
   }
 
@@ -51,16 +51,16 @@ class TwoSum {
     // Checking 2 sum using hash table
     System.out.println("Checking 2 sum using hash set...");
     // logic starts...
-    int[] twoSumIndexes = null;
 
     //populate Hash set with required value and key
-    HashMap<Integer,Integer> requiredNumHashMap = new Map<Integer,Integer>();
+    HashMap<Integer, Integer> requiredNumHashMap = new HashMap<>();
+    
     for(int i=0;i<nums.length;i++){
-      if(requiredNumHashMap.contains(nums[i])){
-        System.out.println("Two sum indexes);
-        return true;
+      if(requiredNumHashMap.containsKey(nums[i])){
+        System.out.println("Two sum indices:"+requiredNumHashMap.get(nums[i])+","+i);
+        return new int[] {requiredNumHashMap.get(nums[i]),i};
       }else{
-        requiredNumHashMap.;
+        requiredNumHashMap.put(targetSum-nums[i], i);
       }
     }
 
