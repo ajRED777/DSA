@@ -19,7 +19,7 @@ class ContainerWithMostWater {
     System.out.println("Getting indices in array that form the largest water container");
     int[] nums = new int[] { 11, 4, 5, 31, 1, 3, 8 };
     System.out.println("Values that form largest container");
-    int[] sides = containerWithMostWaterTwoPointers(nums);
+    int[] sides = containerWithMostWaterBruteForce(nums);
     System.out.println(sides[0] + "," + sides[1]);
     System.out.println("Largest Container Area Possible");
     System.out.println(sides[2]);
@@ -50,7 +50,8 @@ class ContainerWithMostWater {
         int currentArea = height * (j - i);
         if (currentArea > largestArea) {
           largestArea = currentArea;
-          sides = new int[] { nums[i], nums[j], largestArea };
+          if (currentArea == largestArea)
+            sides = new int[] { nums[i], nums[j], largestArea };
         }
       }
     }
@@ -79,8 +80,16 @@ class ContainerWithMostWater {
     while (leftPointer < rightPointer) {
       int currentArea = Math.min(nums[leftPointer], nums[rightPointer]) * (rightPointer - leftPointer);
       largestArea = Math.max(currentArea, largestArea);
-      sides = new int[] { nums[leftPointer], nums[rightPointer], largestArea };
-      int p = (nums[leftPointer] < nums[rightPointer]) ? leftPointer++ : rightPointer--;
+
+      if (currentArea == largestArea)
+        sides = new int[] { nums[leftPointer], nums[rightPointer], largestArea };
+
+      if (nums[leftPointer] < nums[rightPointer]) {
+        leftPointer++;
+      } else {
+        rightPointer--;
+      }
+
     }
 
     return sides;
