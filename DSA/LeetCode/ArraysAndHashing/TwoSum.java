@@ -14,53 +14,52 @@ import java.util.*;
 class TwoSum {
   public static void main(String[] args) {
     System.out.println("Checking if array has integrs with target sum");
-    int[] nums = new int[] {1,2,3,7};
+    int[] nums = new int[] { 1, 2, 3, 7 };
     int targetSum = 5;
     System.out.println();
     System.out.println(Arrays.toString(checkTwoSumUsingHash(nums, targetSum)));
 
   }
 
-  
-  public static int[] checkTwoSumBruteForce(int[] nums,int targetSum) {
+  public static int[] checkTwoSumBruteForce(int[] nums, int targetSum) {
     // Checking 2 sum using brute force
     System.out.println("Checking 2 sum using brute force...");
     // logic starts...
     int[] twoSumIndexes = null;
     int length = nums.length;
-    //1.Check if array is empty
+    // 1.Check if array is empty
     // if(length == 0){
-    //   return twoSumIndexes;
+    // return twoSumIndexes;
     // }
-    //2.Check sum each element with other elements
-    for(int i=0;i<length-1;i++){
+    // 2.Check sum each element with other elements
+    for (int i = 0; i < length - 1; i++) {
       int requiredValue = targetSum - nums[i];
-      for(int j=i+1;j<length-1;j++){
-        if(nums[j]==requiredValue){
-          return twoSumIndexes = new int[] { i,j };
+      for (int j = i + 1; j < length - 1; j++) {
+        if (nums[j] == requiredValue) {
+          return twoSumIndexes = new int[] { i, j };
         }
       }
     }
-    //3.No pairs present
+    // 3.No pairs present
     return null;
     // ...logic ends
 
   }
-  
-  public static int[] checkTwoSumUsingHash(int[] nums,int targetSum) {
+
+  public static int[] checkTwoSumUsingHash(int[] nums, int targetSum) {
     // Checking 2 sum using hash table
     System.out.println("Checking 2 sum using hash set...");
     // logic starts...
 
-    //populate Hash set with required value and key
+    // populate Hash set with required value and key
     HashMap<Integer, Integer> requiredNumHashMap = new HashMap<>();
-    
-    for(int i=0;i<nums.length;i++){
-      if(requiredNumHashMap.containsKey(nums[i])){
-        System.out.println("Two sum indices:"+requiredNumHashMap.get(nums[i])+","+i);
-        return new int[] {requiredNumHashMap.get(nums[i]),i};
-      }else{
-        requiredNumHashMap.put(targetSum-nums[i], i);
+
+    for (int i = 0; i < nums.length; i++) {
+      if (requiredNumHashMap.containsKey(nums[i])) {
+        System.out.println("Two sum indices:" + requiredNumHashMap.get(nums[i]) + "," + i);
+        return new int[] { requiredNumHashMap.get(nums[i]), i };
+      } else {
+        requiredNumHashMap.put(targetSum - nums[i], i);
       }
     }
 
