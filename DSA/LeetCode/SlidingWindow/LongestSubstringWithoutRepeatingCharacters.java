@@ -14,18 +14,21 @@ class LongestSubstringWithoutRepeatingCharacters {
   public static void main(String[] args) {
 
     System.out.println("Longest Substring Without Repeating Characters");
-    // String stringToCheck = "abccabb";
+    String stringToCheck = "abccabb";
     // String stringToCheck = "";
     // String stringToCheck = "aaa";
-    String stringToCheck = "abcbda";
+    // String stringToCheck = "abcbda";
 
     System.out.println("String to be checked is: " + stringToCheck);
     System.out.println("Longest substring count of non repeating chars is: ");
-    System.out.println(lengthOfLongestSubstringBruteForce(stringToCheck));
+    System.out.println(lengthOfLongestSubstringOptimised(stringToCheck));
 
   }
 
   public static int lengthOfLongestSubstringBruteForce(String stringInput) {
+
+    //Time:O(n^2)
+    //Space:O(n)
 
     // handle edge cases
     if (stringInput.length() <= 1) {
@@ -59,9 +62,48 @@ class LongestSubstringWithoutRepeatingCharacters {
     return longest;
   }
 
+
+  //Sliding Window technique
+  // --[---]----
+  //--need to look at sequence of small portion of data
+  //--sequence of data matters
+  //Time:O(n)
+  //Space:O(n)
   public static int lengthOfLongestSubstringOptimised(String stringInput) {
-    // keep track of length
+    // keep track of current and longest length
+    int currentLength=0;
     int longest = 0;
+
+    //pointer for window
+    int right=0;
+    int left=0;
+
+    //Map to keep track of window chars and their position
+    Map<Character,Integer> windowChars = new HashMap<>();
+
+    while(left<=right && right < stringInput.length()){
+      Character currentChar = stringInput.charAt(right);
+      
+      //add char to window map if not present and set variables     
+      if(!windowChars.containsKey(currentChar)){
+        
+        currentLength++;
+        windowChars.put(currentChar, right);
+        right++;
+        longest=Math.max(currentLength, longest);
+
+      //if char present then reset map and variables  
+      }else{
+        currentLength=0;
+        
+        //shifting window from the position of repeated char
+        left = windowChars.get(currentChar)+1;
+        
+        windowChars = new HashMap<>();
+        right = left;
+      }
+      
+    }
 
     return longest;
 
