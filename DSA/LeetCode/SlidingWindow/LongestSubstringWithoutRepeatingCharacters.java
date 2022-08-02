@@ -21,7 +21,7 @@ class LongestSubstringWithoutRepeatingCharacters {
 
     System.out.println("String to be checked is: " + stringToCheck);
     System.out.println("Longest substring count of non repeating chars is: ");
-    System.out.println(lengthOfLongestSubstringOptimised(stringToCheck));
+    System.out.println(lengthOfLongestSubstringOptimisedSet(stringToCheck));
 
   }
 
@@ -147,6 +147,7 @@ class LongestSubstringWithoutRepeatingCharacters {
       longest = Math.max(longest, right - left + 1);
 
     }
+    return longest;
 
   }
 
