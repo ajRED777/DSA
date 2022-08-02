@@ -27,8 +27,8 @@ class LongestSubstringWithoutRepeatingCharacters {
 
   public static int lengthOfLongestSubstringBruteForce(String stringInput) {
 
-    //Time:O(n^2)
-    //Space:O(n)
+    // Time:O(n^2)
+    // Space:O(n)
 
     // handle edge cases
     if (stringInput.length() <= 1) {
@@ -62,50 +62,91 @@ class LongestSubstringWithoutRepeatingCharacters {
     return longest;
   }
 
-
-  //Sliding Window technique
+  // Sliding Window technique
   // --[---]----
-  //--need to look at sequence of small portion of data
-  //--sequence of data matters
-  //Time:O(n)
-  //Space:O(n)
+  // --need to look at sequence of small portion of data
+  // --sequence of data matters
+  // Time:O(n)
+  // Space:O(n)
   public static int lengthOfLongestSubstringOptimised(String stringInput) {
     // keep track of current and longest length
-    int currentLength=0;
+    int currentLength = 0;
     int longest = 0;
 
-    //pointer for window
-    int right=0;
-    int left=0;
+    // pointer for window
+    int right = 0;
+    int left = 0;
 
-    //Map to keep track of window chars and their position
-    Map<Character,Integer> windowChars = new HashMap<>();
+    // Map to keep track of window chars and their position
+    Map<Character, Integer> windowChars = new HashMap<>();
 
-    while(left<=right && right < stringInput.length()){
+    while (left <= right && right < stringInput.length()) {
       Character currentChar = stringInput.charAt(right);
-      
-      //add char to window map if not present and set variables     
-      if(!windowChars.containsKey(currentChar)){
-        
+
+      // add char to window map if not present and set variables
+      if (!windowChars.containsKey(currentChar)) {
+
         currentLength++;
         windowChars.put(currentChar, right);
         right++;
-        longest=Math.max(currentLength, longest);
+        longest = Math.max(currentLength, longest);
 
-      //if char present then reset map and variables  
-      }else{
-        currentLength=0;
-        
-        //shifting window from the position of repeated char
-        left = windowChars.get(currentChar)+1;
-        
+        // if char present then reset map and variables
+      } else {
+        currentLength = 0;
+
+        // shifting window from the position of repeated char
+        left = windowChars.get(currentChar) + 1;
+
         windowChars = new HashMap<>();
         right = left;
       }
-      
+
     }
 
     return longest;
+
+  }
+
+  // Sliding Window technique
+  // --[---]----
+  // --need to look at sequence of small portion of data
+  // --sequence of data matters
+  // Optmisations from previous attempt::
+  // Using hashset to remove char one by one until repeated char removed
+  //// which reuses same set instead of reseting
+  // for looping right pointer
+  // left pointer used to remove the repeated char in while loop
+  // no variable for current length
+  // Time:O(n)
+  // Space:O(n)
+  public static int lengthOfLongestSubstringOptimisedSet(String stringInput) {
+
+    // keep track of longest length
+    int longest = 0;
+
+    // left pointer for window
+    int left = 0;
+
+    // Hash Set to keep track of window chars
+    HashSet<Character> setWindow = new HashSet<>();
+
+    for (int right = 0; right < stringInput.length(); right++) {
+
+      // while the repeated char exists in set
+      while (setWindow.contains(stringInput.charAt(right))) {
+        // remove left pointer char from set
+        setWindow.remove(stringInput.charAt(left));
+        left++;
+      }
+
+      // add char to set since no repeated char detected in ^ while loop
+      setWindow.add(stringInput.charAt(right));
+      // set longest comparing with existing length
+      // existing lenth is rigth - left + 1 ( [01]2345 )
+      longest = Math.max(longest, right - left + 1);
+
+    }
 
   }
 
