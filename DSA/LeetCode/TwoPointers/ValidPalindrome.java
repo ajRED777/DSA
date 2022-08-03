@@ -29,7 +29,7 @@ class ValidPalindrome {
     System.out.println("String to be evaluated:");
     System.out.println(stringInput);
 
-    if (checkIfPalindromeRecursion(stringInput)) {
+    if (checkIfPalindrome2PointerWithoutRegx(stringInput)) {
       System.out.println(stringInput + " is a Palindrome");
     } else {
       System.out.println(stringInput + " is not a Palindrome");
