@@ -1,3 +1,12 @@
 {
-  "files": {}
+  "files": {
+    "DSA/LeetCode/TwoPointers/ValidPalindrome.java": [
+      {
+        "id": "982b7b72-420e-4ba0-a4fb-04c8e2650c5c",
+        "line": 3,
+        "version": 1100,
+        "index": 21
+      }
+    ]
+  }
 }
