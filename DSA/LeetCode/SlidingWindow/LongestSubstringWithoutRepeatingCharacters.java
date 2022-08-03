@@ -21,7 +21,7 @@ class LongestSubstringWithoutRepeatingCharacters {
 
     System.out.println("String to be checked is: " + stringToCheck);
     System.out.println("Longest substring count of non repeating chars is: ");
-    System.out.println(lengthOfLongestSubstringOptimisedSet(stringToCheck));
+    System.out.println(lengthOfLongestSubstringOptimisedMap(stringToCheck));
 
   }
 
@@ -142,6 +142,49 @@ class LongestSubstringWithoutRepeatingCharacters {
 
       // add char to set since no repeated char detected in ^ while loop
       setWindow.add(stringInput.charAt(right));
+      // set longest comparing with existing length
+      // existing lenth is rigth - left + 1 ( [01]2345 )
+      longest = Math.max(longest, right - left + 1);
+
+    }
+    return longest;
+
+  }
+
+  // Sliding Window technique
+  // --[---]----
+  // --need to look at sequence of small portion of data
+  // --sequence of data matters
+  // Optmisations from previous attempt::
+  // Map to store index of repeated char to avoid while loop to remove char one by
+  // one and jump left pointer directly to position for next substring
+  // Time:O(n)
+  // Space:O(n)
+  public static int lengthOfLongestSubstringOptimisedMap(String stringInput) {
+
+    // keep track of longest length
+    int longest = 0;
+
+    // left pointer for window
+    int left = 0;
+
+    // Hash Map to keep track of window chars
+    Map<Character, Integer> windowMap = new HashMap<>();
+
+    for (int right = 0; right < stringInput.length(); right++) {
+
+      Character currentChar = stringInput.charAt(right);
+      // get index of char in the map(null if not present)
+      Integer prevSeenCharIndex = windowMap.get(currentChar);
+
+      // if left pointer is before the repeated char
+      if (prevSeenCharIndex != null && prevSeenCharIndex >= left) {
+        // then move left to check new sub string
+        left = prevSeenCharIndex + 1;
+      }
+
+      // add char to map with position
+      windowMap.put(currentChar, right);
       // set longest comparing with existing length
       // existing lenth is rigth - left + 1 ( [01]2345 )
       longest = Math.max(longest, right - left + 1);
