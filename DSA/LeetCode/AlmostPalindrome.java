@@ -61,7 +61,9 @@ class AlmostPalindrome {
         continue;
       }
 
+      // check if chars pointed are same
       if (Character.toLowerCase(leftChar) != Character.toLowerCase(rightChar)) {
+        // check substring is palindrome if removing 1 char pointed by left,right
         return checkSubstringPalindrome(stringInput, left + 1, right)
             || checkSubstringPalindrome(stringInput, left, right - 1);
       }
@@ -88,6 +90,7 @@ class AlmostPalindrome {
         continue;
       }
 
+      // check if chars pointed are same
       if (Character.toLowerCase(leftChar) != Character.toLowerCase(rightChar)) {
         return false;
       }
